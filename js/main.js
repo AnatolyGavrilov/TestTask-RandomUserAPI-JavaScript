@@ -2,18 +2,6 @@ let container = document.querySelector('.container');
 
 let users = [];
 
-let drowElements = (users) => {
-  users.map((elem)=> { 
-    let element = document.createElement("div");
-    let elementGender = document.createElement("p");
-    // let elementName = document.createElement("div");
-    let elemGender = document.createTextNode(elem.gender);
-    element.appendChild(elemGender);
-    element.className="test2";
-    container.appendChild(element);
-  })
-}
-
 let xmlHttpRequest = function(url) {
     return new Promise(function(resolve, reject) {
         var xhr = new XMLHttpRequest();
@@ -35,9 +23,31 @@ let xmlHttpRequest = function(url) {
     });
   };
   
-  xmlHttpRequest('https://randomuser.me/api/?results=25')
-    .then((users) => {
-        drowElements(users);
-    }).catch(function(err){
-    console.error(err);
-  });
+let drowElements = (users) => {
+  users.map((elem)=> { 
+    let element = document.createElement("div");
+
+    let elementGender = document.createElement("p");
+    let elememtGenderText = document.createTextNode(elem.gender);
+    elementGender.appendChild(elememtGenderText);
+
+    let elementName = document.createElement("div");
+    let elementNameTitle = document.createElement("p");
+    let elementNameTitleText = document.createTextNode(elem.name.title);
+    elementNameTitle.appendChild(elementNameTitleText);
+    elementName.appendChild(elementNameTitle);
+    
+
+    element.appendChild(elementGender);
+    element.appendChild(elementName);
+    element.className="test2";
+    container.appendChild(element);
+  })
+}
+
+xmlHttpRequest('https://randomuser.me/api/?results=25')
+  .then((users) => {
+      drowElements(users);
+  }).catch(function(err){
+  console.error(err);
+});
